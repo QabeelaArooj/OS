@@ -1,14 +1,19 @@
-global _main
-extern _printf
-section .data
-format db "Value in AL = %d", 10, 0
 section .text
+global _main
 _main:
-mov al, 10
-movzx eax, al
-push eax
-push format
-call _printf
-add esp, 8
-xor eax, eax
-ret
+    pushad
+
+    mov ebx, 10
+    mov ecx, 20
+    mov esi, 5
+
+    ; ADD R1, R2, R3
+    mov eax, ebx
+    add eax, ecx
+    ; SUB R4, R1, R5   <- RAW hazard on R1
+    mov edx, eax
+    sub edx, esi
+
+    popad
+    xor eax, eax
+    ret

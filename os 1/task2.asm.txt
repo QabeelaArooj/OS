@@ -1,13 +1,21 @@
-global _main 
-extern _printf 
-section .data
-format db "EAX = 0x%08X", 10, 0 
-section .text 
-_main: 
-mov eax,0x12345678 
-push eax
-push format 
-call _printf 
-add esp, 8 
-xor eax, eax 
-ret
+section .text
+global _main
+_main:
+    pushad
+
+    mov ebx, 10
+    mov ecx, 20
+    mov esi, 5
+
+    ; ADD R1, R2, R3
+    mov eax, ebx
+    add eax, ecx
+    nop
+    nop
+    ; SUB R4, R1, R5
+    mov edx, eax
+    sub edx, esi
+
+    popad
+    xor eax, eax
+    ret
